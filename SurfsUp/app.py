@@ -15,11 +15,8 @@ from flask import Flask , jsonify
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 
-
 # reflect an existing database into a new model
 Base = automap_base()
-
-
 
 # reflect the tables
 Base.prepare(autoload_with=engine)
@@ -30,16 +27,14 @@ Measurement =Base.classes.measurement
 Station = Base.classes.station
 
 
-
-
 # Create our session (link) from Python to the DB
 
 session = Session(engine)
 #################################################
 # Flask Setup
 #################################################
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 
 #################################################
@@ -55,8 +50,8 @@ def homepage():
         f"/api/v1.0/<start><br/>"
         f"/api/v1.0/<start>/<end>"
     )
-# Converting the query results from the precipitation analysis (last 12 months data) to a dictionary with date as key and prcp as vlaues
 
+# Converting the query results from the precipitation analysis (last 12 months data) to a dictionary with date as key and prcp as vlaues
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     last_year_date = dt.date(2017,8,23) - dt.timedelta(days=365)
@@ -83,7 +78,7 @@ def stations():
     # Return the JSON response using Flask's jsonify function
     return jsonify(stations=stations_list)
 
- #Query the dates and temperature observations of the most-active station for the previous year of data.
+#Query the dates and temperature observations of the most-active station for the previous year of data.
 
 @app.route("/api/v1.0/tobs")   
 def temperature():
